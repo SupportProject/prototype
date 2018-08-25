@@ -1,5 +1,5 @@
 export default {
-  appTitle: '... Prototype',
+  appTitle: 'My Prototype',
   currency: {
     name: 'Ethereum',
     symbol: 'ETH'
@@ -16,8 +16,7 @@ export default {
   userDetails: {
     displayName: null,
     ethAccount: null,
-    ethBalance: null,
-    walletCoupons: []
+    ethBalance: null
   },
   web3: {
     host: null,
@@ -32,11 +31,9 @@ export default {
   txComposer: [],
   userTxs: [],
   userTxsLatestBlock: 0,
-  defaultContractAddresses: [
-],
+  defaultContractAddresses: [],
   contracts: [],
   notificationsQueue: [],
-  userOpportunities: [],
   currencyConversionRates: {
     ethusd: '700',
     ethgbp: '523'

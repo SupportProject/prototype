@@ -1,4 +1,3 @@
-import helperUsers from '../helpers/userAccounts'
 
 export default {
   getNotification: state => {

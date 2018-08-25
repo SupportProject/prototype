@@ -169,20 +169,18 @@ export default {
     },
     submit () {
       if (this.$refs.form.validate()) {
-
-          let weiAmount = window.web3.utils.toWei(this.txAmount, 'ether')
-          this.$store.dispatch('composeTransaction', {
-            fromAddress: this.$store.state.userDetails.ethAccount,
-            fromName: this.$store.state.user.displayName,
-            toAddress: this.$store.state.txComposer.toAccount,
-            toName: this.$store.state.txComposer.toName,
-            amount: weiAmount
-          })
-          this.txComposer = this.$store.state.txComposer
-          transactionsHelper.sendTransaction(this.txComposer)
-          // clear screen
-          this.dialog = false
-
+        let weiAmount = window.web3.utils.toWei(this.txAmount, 'ether')
+        this.$store.dispatch('composeTransaction', {
+          fromAddress: this.$store.state.userDetails.ethAccount,
+          fromName: this.$store.state.user.displayName,
+          toAddress: this.$store.state.txComposer.toAccount,
+          toName: this.$store.state.txComposer.toName,
+          amount: weiAmount
+        })
+        this.txComposer = this.$store.state.txComposer
+        transactionsHelper.sendTransaction(this.txComposer)
+        // clear screen
+        this.dialog = false
       } else {
         console.log('validation failed')
       }

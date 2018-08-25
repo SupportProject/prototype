@@ -92,8 +92,7 @@ export default {
   },
   components: {
     'app-transaction-send': TransactionSend,
-    'app-transactions-view': TransactionsView,
-
+    'app-transactions-view': TransactionsView
   },
   computed: {
     ...mapGetters({

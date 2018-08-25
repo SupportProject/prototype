@@ -14,7 +14,6 @@ export default {
     commit('setLoading', true)
     commit('setUserTxsBlockUpdate', 0)
     commit('setUserTxs', [])
-    commit('resetAuctionContracts')
     firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
     .then(firebaseUser => {
       firebaseUser.updateProfile({
@@ -59,7 +58,6 @@ export default {
     commit('setLoading', true)
     commit('setUserTxsBlockUpdate', 0)
     commit('setUserTxs', [])
-    commit('resetAuctionContracts')
     firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
       .then(firebaseUser => {
         commit('setUser', {loggedIn: true, email: firebaseUser.email, displayName: firebaseUser.displayName, uid: firebaseUser.uid})
@@ -91,7 +89,6 @@ export default {
   autoSignIn ({commit}, firebaseUser) {
     commit('setUserTxsBlockUpdate', 0)
     commit('setUserTxs', [])
-    commit('resetAuctionContracts')
     commit('setUser', {loggedIn: true, email: firebaseUser.email, displayName: firebaseUser.displayName, uid: firebaseUser.uid})
     db.collection('users').doc(firebaseUser.uid).get()
     .then(doc => {
@@ -115,7 +112,6 @@ export default {
     commit('setUserDetails', {displayName: null, ethAccount: null, ethBalance: null, walletCoupons: []})
     commit('setUserTxsBlockUpdate', 0)
     commit('setUserTxs', [])
-    commit('resetAuctionContracts')
     router.push('/')
   },
 
