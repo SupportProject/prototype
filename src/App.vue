@@ -1,42 +1,93 @@
 <template>
   <v-app v-scroll="onScroll">
-    <v-navigation-drawer v-model="sidebar" disable-resize-watcher app>
-      <v-list>
-        <v-list-tile
-          v-for="item in menuItems"
-          :key="item.title"
-          :to="item.path">
+    <v-navigation-drawer
+    :clipped="$vuetify.breakpoint.lgAndUp"
+    v-model="sidebar"
+    fixed
+    app>
+    <v-list dense>
+      <template v-for="item in items">
+        <v-layout
+          v-if="item.heading"
+          :key="item.heading"
+          row
+          align-center
+        >
+          <v-flex xs6>
+            <v-subheader v-if="item.heading">
+              {{ item.heading }}
+            </v-subheader>
+          </v-flex>
+          <v-flex xs6 class="text-xs-center">
+            <a href="#!" class="body-2 black--text">EDIT</a>
+          </v-flex>
+        </v-layout>
+        <v-list-group
+          v-else-if="item.children"
+          v-model="item.model"
+          :key="item.text"
+          :prepend-icon="item.model ? item.icon : item['icon-alt']"
+          append-icon=""
+        >
+          <v-list-tile slot="activator">
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ item.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile
+            v-for="(child, i) in item.children"
+            :key="i"
+            @click=""
+          >
+            <v-list-tile-action v-if="child.icon">
+              <v-icon>{{ child.icon }}</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>
+                {{ child.text }}
+              </v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list-group>
+        <v-list-tile v-else :key="item.text" @click="">
           <v-list-tile-action>
             <v-icon>{{ item.icon }}</v-icon>
           </v-list-tile-action>
-          <v-list-tile-content>{{ item.title }}</v-list-tile-content>
+          <v-list-tile-content>
+            <v-list-tile-title>
+              {{ item.text }}
+            </v-list-tile-title>
+          </v-list-tile-content>
         </v-list-tile>
-        <v-list-tile v-if="isAuthenticated" @click="userSignOut">
-          <v-list-tile-action><v-icon>exit_to_app</v-icon></v-list-tile-action>
-          <v-list-tile-content>Sign Out</v-list-tile-content>
-        </v-list-tile>
-
-      </v-list>
+      </template>
+    </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar app dark class="primary">
-      <span class="hidden-sm-and-up">
-        <v-toolbar-side-icon @click="sidebar = !sidebar">
-        </v-toolbar-side-icon>
+    <v-toolbar
+    :clipped-left="$vuetify.breakpoint.lgAndUp"
+    dark
+    app
+    fixed
+    class="primary">
+    <v-toolbar-title style="width: 300px" class="ml-0 pl-3">
+      <v-toolbar-side-icon @click.stop="sidebar = !sidebar"></v-toolbar-side-icon>
+      <router-link to="/home" tag="span" style="cursor: pointer">
+        <span class="hidden-sm-and-down">{{ appTitle }}</span>
+      </router-link>
+    </v-toolbar-title>
+    <v-text-field
+      flat
+      solo-inverted
+      hide-details
+      prepend-inner-icon="search"
+      label="Search"
+      class="hidden-sm-and-down"
+    ></v-text-field>
+    <v-spacer></v-spacer>
 
-      </span>
-      <v-toolbar-title>
-        <router-link to="/home" tag="span" style="cursor: pointer">
-          <v-toolbar-items>
-          <img src="./assets/logo.png" height="36" class="pr-2">
-          <span>
-           {{ appTitle }}
-          </span>
-           </v-toolbar-items>
-        </router-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-toolbar-items class="hidden-xs-only">
+  <v-toolbar-items class="hidden-xs-only">
 
   <v-btn v-if="!isAuthenticated"
     flat
@@ -53,8 +104,8 @@
       <v-icon dark>arrow_drop_down</v-icon>
     </v-btn>
     <v-list>
-      <v-list-tile :to="'/wallet'" @click="">
-        <v-list-tile-title><v-icon left>account_balance_wallet</v-icon> Wallet</v-list-tile-title>
+      <v-list-tile :to="'/home'" @click="">
+        <v-list-tile-title><v-icon left>home</v-icon> Home</v-list-tile-title>
       </v-list-tile>
       <v-list-tile @click="userSignOut">
         <v-list-tile-title><v-icon left>exit_to_app</v-icon> Sign Out</v-list-tile-title>
@@ -68,16 +119,9 @@
       <router-view></router-view>
     </v-content>
       <v-footer class="mt-4 pa-3" fixed>
-
-        <v-slide-y-reverse-transition>
-        <span v-show="!blockchainLoading" >
-          <v-chip label color="primary lighten-2" text-color="white" small>Latest Block:&nbsp;<strong>{{ latestBlock }}</strong></v-chip>
-        </span>
-        </v-slide-y-reverse-transition>
-
       <v-spacer></v-spacer>
       <div>
-        <span class="primary--text"><h3>#Vue Ethereum App</h3></span>
+        <span class="primary--text"><h3>#Vue App</h3></span>
       </div>
     </v-footer>
 
@@ -117,11 +161,38 @@ export default {
     return {
       snackbar: false,
       offsetTop: 0,
-      blockchainLoading: false,
-      sidebar: false,
-      tools: [
-      ],
-      demos: [
+      sidebar: null,
+      items: [
+        { icon: 'contacts', text: 'Contacts' },
+        { icon: 'history', text: 'Frequently contacted' },
+        { icon: 'content_copy', text: 'Duplicates' },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'Labels',
+          model: true,
+          children: [
+            { icon: 'add', text: 'Create label' }
+          ]
+        },
+        {
+          icon: 'keyboard_arrow_up',
+          'icon-alt': 'keyboard_arrow_down',
+          text: 'More',
+          model: false,
+          children: [
+            { text: 'Import' },
+            { text: 'Export' },
+            { text: 'Print' },
+            { text: 'Undo changes' },
+            { text: 'Other contacts' }
+          ]
+        },
+        { icon: 'settings', text: 'Settings' },
+        { icon: 'chat_bubble', text: 'Send feedback' },
+        { icon: 'help', text: 'Help' },
+        { icon: 'phonelink', text: 'App downloads' },
+        { icon: 'keyboard', text: 'Go to the old version' }
       ]
     }
   },
@@ -138,7 +209,7 @@ export default {
     menuItems () {
       if (this.isAuthenticated) {
         return [
-            { title: 'Wallet', path: '/wallet', icon: 'account_balance_wallet' }
+            { title: 'Home', path: '/home', icon: 'home' }
         ]
       } else {
         return [
@@ -147,9 +218,6 @@ export default {
           { title: 'System', path: '/system', icon: 'settings' }
         ]
       }
-    },
-    latestBlock () {
-      return this.$store.state.web3.latestBlock.number || 'No Network Detected'
     },
     notifications () {
       let notification = this.$store.getters.getNotification
@@ -176,12 +244,6 @@ export default {
     },
     userSignOut () {
       this.$store.dispatch('userSignOut')
-    },
-    refreshBlockchainData () {
-      this.$store.dispatch('registerWeb3', window.web3)
-      .then(
-       //
-      )
     }
   },
   watch: {
@@ -195,24 +257,10 @@ export default {
           //
       }
       this.show = false
-    },
-    latestBlock: function (val) {
-      this.blockchainLoading = true
-      if (this.isAuthenticated && this.$route) {
-        this.$store.dispatch('userTxs')
-        this.$store.dispatch('updateAccount')
-      }
-      setTimeout(function () {
-        this.blockchainLoading = false
-      }.bind(this), 350)
     }
   },
   mounted: function () {
-    // Poll blockchain for latest block
-    this.refreshBlockchainData()
-    setInterval(function () {
-      this.refreshBlockchainData()
-    }.bind(this), 6500)
+    //
   }
 }
 </script>

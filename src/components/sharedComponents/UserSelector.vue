@@ -59,7 +59,7 @@
             filename = filename.split(' ').join('')
             let fileType = '.jpg'
             let profileImage = path + filename + fileType
-            selections.push({name: res.displayName, account: res.ethAccount, profileImage: profileImage})
+            selections.push({name: res.displayName, profileImage: profileImage})
           }
         })
         return selections

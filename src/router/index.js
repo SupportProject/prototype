@@ -6,8 +6,7 @@ const routerOptions = [
   { path: '/', component: 'Landing' },
   { path: '/signin', component: 'Signin' },
   { path: '/signup', component: 'Signup' },
-  { path: '/wallet', component: 'Wallet', meta: { requiresAuth: true } },
-  { path: '/home', redirect: '/wallet' },
+  { path: '/home', component: 'Home', meta: { requiresAuth: true } },
   { path: '/system', component: 'System' },
   { path: '*', component: 'NotFound' }
 ]

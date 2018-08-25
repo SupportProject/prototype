@@ -7,7 +7,6 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import { store } from './store'
 import firebase from 'firebase'
-import Web3 from 'web3'
 
 import 'firebase/firestore'
 
@@ -41,21 +40,10 @@ const unsubscribe = firebase.auth()
       store,
       render: h => h(App),
       created () {
-        // Create a web3 instance.
-        if (process.env.web3.injectedProvider === true && typeof web3 !== 'undefined') {
-          window.web3 = new Web3(window.web3.currentProvider)
-          console.log(`Web3 Injected Provider: ${window.web3.currentProvider.constructor.name}`)
-        } else {
-          window.web3 = new Web3(new Web3.providers.HttpProvider(process.env.web3.localProviderUrl))
-          console.log(`Web3 HTTP Provider: ${window.web3._provider.host} (Not using injected web3 such as Metamask)`)
-        }
-        store.dispatch('registerWeb3', window.web3)
-        store.dispatch('registerGanacheAccounts')
         store.dispatch('registerAllUsers')
         if (firebaseUser) {
           store.dispatch('autoSignIn', firebaseUser)
         }
-        store.dispatch('registerContracts')
       }
     })
     unsubscribe()
