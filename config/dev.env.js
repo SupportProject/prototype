@@ -11,31 +11,13 @@ module.exports = merge(prodEnv, {
   NODE_ENV: '"development"',
 
   firebase: {
-    apiKey: '"AIzaSyAFtw8zsWhYQK4AKl5HjVHxnrDmAiYxW1c"',
-    authDomain: '"vue-eth-base.firebaseapp.com"',
-    databaseURL: '"https://vue-eth-base.firebaseio.com"',
-    projectId: '"vue-eth-base"'
+    apiKey: '"AIzaSyDkOL-53Nu7ty5kgGWttaKcpzAe2hDxwnA"',
+    authDomain: '"supportproject-54ae6.firebaseapp.com"',
+    databaseURL: '"https://supportproject-54ae6.firebaseio.com"',
+    projectId: '"supportproject-54ae6"'
   },
 
-  web3: {
-    // default to an injected provider (e.g. Metamask) if available
-    injectedProvider: false,
-    // use ganach-cli as a dev ethereum blockchain
-    localProviderUrl: '"http://localhost:8545"'
-  },
-
-  // settings for the ganache-cli test ethereum networks
-  // use these settings to start ganache with a consistent set of accounts
-  ganache: {
-    // option to seed accounts/mnemonic - ganache-cli -s "MyArbitrarySeed"
-    seed: '"SeedPhraseHere"',
-    // mnemonic option (also used in Metamask) - ganache-cli -m "... ... ..."
-    mnemonic: '"MnemonicHere"',
-    // the number of accounts to create - ganache-cli -a 10
-    initAccounts: '20'
-  },
-
-  // Users to be initialised upon request and assigned an ethereum address
+  // Users to be initialised upon request
   initUsers: {
     // Admin
     seedAccounts: [{

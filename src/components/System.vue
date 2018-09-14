@@ -76,7 +76,7 @@ export default {
   },
   computed: {
     firebaseStatus () {
-      return 'CONNECTED'
+      return 'CONNECTED'// todo return proper statuses
     },
     accountSeedingLoading () {
       return this.$store.state.accountSeedingLoading
