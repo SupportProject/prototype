@@ -121,7 +121,7 @@
       <v-footer class="mt-4 pa-3" fixed>
       <v-spacer></v-spacer>
       <div>
-        <span class="primary--text"><h3>#Vue App</h3></span>
+        <span class="primary--text"><h3>#Support Proect</h3></span>
       </div>
     </v-footer>
 
@@ -163,36 +163,21 @@ export default {
       offsetTop: 0,
       sidebar: null,
       items: [
-        { icon: 'contacts', text: 'Contacts' },
-        { icon: 'history', text: 'Frequently contacted' },
-        { icon: 'content_copy', text: 'Duplicates' },
-        {
-          icon: 'keyboard_arrow_up',
-          'icon-alt': 'keyboard_arrow_down',
-          text: 'Labels',
-          model: true,
-          children: [
-            { icon: 'add', text: 'Create label' }
-          ]
-        },
+        { icon: 'home', text: 'Home' },
+        { icon: 'assignment', text: 'Guidelines: What to expect' },
         {
           icon: 'keyboard_arrow_up',
           'icon-alt': 'keyboard_arrow_down',
           text: 'More',
-          model: false,
+          model: true,
           children: [
-            { text: 'Import' },
-            { text: 'Export' },
-            { text: 'Print' },
-            { text: 'Undo changes' },
-            { text: 'Other contacts' }
+            { icon: 'add', text: 'More Options if needed' }
           ]
         },
         { icon: 'settings', text: 'Settings' },
         { icon: 'chat_bubble', text: 'Send feedback' },
         { icon: 'help', text: 'Help' },
-        { icon: 'phonelink', text: 'App downloads' },
-        { icon: 'keyboard', text: 'Go to the old version' }
+        { icon: 'phonelink', text: 'App downloads' }
       ]
     }
   },
