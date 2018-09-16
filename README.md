@@ -13,10 +13,10 @@ A prototype for the Support Project App, to demonstrate the concept, use cases a
 * Or if you don't have SSH keys on github type: `git clone https://github.com/SupportProject/prototype.git`
 
 ### Installing devDependencies
-* cd into the prototype folder so that you are in `SupportProject/Prototype`
+* cd into the prototype folder so that you are in `SupportProject/prototype`
 * type: npm install (this looks in the package.json for dependencies and installs them)
 
 ### Run the Build and Launch Site
 * type: `npm run dev`
 
-The should should then be served locally at http://localhost:8080
+The site should then be served locally at http://localhost:8080
