@@ -81,7 +81,7 @@
           <v-icon left>
             local_cafe
           </v-icon>
-            Want to Talk</v-btn>
+            I Want to Talk</v-btn>
       </v-flex>
     </v-container>
   </v-layout>

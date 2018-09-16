@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout row wrap>
       <v-flex xs12 class="text-xs-center" mt-5>
-        <h1>Support Project Prototype</h1>
+        <img width="230" src="../../static/logos/supportProjectLogo.jpg" />
       </v-flex>
       <v-flex xs12 sm6 offset-sm3 mt-3>
         <blockquote class="blockquote text-xs-center">
