@@ -14,4 +14,4 @@ yarn-error.log*
 *.sln
 
 # Lock files
-.~lock.*
+package-lock.json
